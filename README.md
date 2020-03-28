@@ -240,5 +240,4 @@ void coloreaTecla(int tecla, int cod_nota_natural, int cod_nota){
 
 - Modesto Fernando Castrillón Santana, José Daniel Hernández Sosa: [Creando Interfaces de Usuario. Guion de Prácticas](https://cv-aep.ulpgc.es/cv/ulpgctp20/pluginfile.php/126724/mod_resource/content/25/CIU_Pr_cticas.pdf).
 - Processing Foundation: [Processing Reference.](https://processing.org/reference/).
-- Biblioteca CVImage: [Compilación de OpenCV 4.0 para Processing](http://www.magicandlove.com/blog/2018/11/22/opencv-4-0-0-java-built-and-cvimage-library/).
-- Biblioteca Video 1.0.1 (Gstream-based video library for Porcessing).
+- Biblioteca SoundCipher: [Home Page](http://explodingart.com/soundcipher/index.html)
