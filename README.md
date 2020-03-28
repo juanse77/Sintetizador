@@ -50,7 +50,7 @@ if(modoAutomatico){
 }
 ```
 
-<p>En el método accionaTecla se pintan de azul las teclas accionadas dependiendo de si son naturales o alteradas, de su posición en el eje X y de su posición relativa detro de las teclas de su naturaleza. Además, se pinta una etiqueta en la parte inferior de la tecla centrada en la misma con el nombre de la nota que se acciona. Finalmente en el método se hace la llamada al método que producirá el sonido.</p>
+<p>En el método accionaTecla se pintan de azul las teclas accionadas dependiendo de si son naturales o alteradas, de su posición en el eje X y de su posición relativa dentro de las teclas de su naturaleza. Además, se pinta una etiqueta en la parte inferior de la tecla centrada en la misma con el nombre de la nota que se acciona. Finalmente en el método se hace la llamada al método que producirá el sonido.</p>
 
 ```java
 void accionaTecla(Tecla t, int i){
@@ -115,7 +115,7 @@ void accionaTecla(Tecla t, int i){
 
 <p>Se comprueba que al pulsar en el margen izquierdo de la tecla inicial no se intente acceder a la tecla de su izquierda ya que no existe y se produciría un overflow. El mismo caso se chequea para la última nota si se pulsa en el margen derecho.</p>
 
-``java
+```java
 
   if(!modoAutomatico && mouseY > ALTO_MENU){
     int tecla = (int)(mouseX/45);
@@ -156,7 +156,7 @@ void accionaTecla(Tecla t, int i){
 
 <p>El método coloreaTecla es similar a el método accionaTecla con lo que no requiere mayor explicación.</p>
 
-``java
+```java
 void coloreaTecla(int tecla, int cod_nota_natural, int cod_nota){
   fill(0, 128, 255);
   textAlign(CENTER, TOP);
@@ -213,7 +213,7 @@ void coloreaTecla(int tecla, int cod_nota_natural, int cod_nota){
 
 <p>Para la funcionalidad de salvado del fichero "melodia.mid" se utilizan tres variables: la bandera grabar y dos marcas de tiempo. Las marcas de tiempo serán la de el inicio de la grabación y la otra variable se utilizará para obtener la marca de tiempo de cada pulsación que luego servirá para hacer el cálculo de startBeat del método addNote.</p>
 
-``java
+```java
   if(!modoAutomatico){
     if(key == 'r' || key == 'R'){
       if(grabar){
