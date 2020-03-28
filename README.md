@@ -1,4 +1,4 @@
-<h1>Distorsionador de imagen:</h1>
+<h1>Sintetizador:</h1>
 
 <p>En esta práctica se ha reproducido en comportamiento de un sintetizador muy básico en el cual se puede alternar entre la reproducción automática de una melodía o la activación del teclado manual. En el modo manual también se ha habilitado la posibilidad de grabar en un fichero midi la ejecución que realice en el teclado.</p>
 
