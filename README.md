@@ -111,7 +111,9 @@ void accionaTecla(Tecla t, int i){
 
 <p>Para detectar que tono adecuado se corresponde con la pulsación de ratón se utilizó dos variables: cod_nota y cod_nota_natural. En el caso en el que cod_nota y cod_nota_natural sean distintas se sabrá con seguridad que la nota es realmente una nota alterada.</p>
 
-<p>Por último en el caso de que se pulse en el margen izquierdo de una tecla natural que a su izquierda tiene otra nota natural se le suma 1, que sería equivalente a hacer un redondeo superior.</p>
+<p>Por último en el caso de que se pulse en el margen izquierdo de una tecla natural que a su izquierda tiene otra nota natural se le suma 1, que sería equivalente a hacer un redondeo superior. Con esta información se realiza la llamada al método coloreaTecla, y finalmente se pasa a emitir el sonido y a guardarlo en un objeto SCScore para volcarlo a un fichero midi. Este último pasa solo funcionará en el caso de que la grabación se haya activado.</p>
+
+<p>Se comprueba que al pulsar en el margen izquierdo de la tecla inicial no se intente acceder a la tecla de su izquierda ya que no existe y se produciría un overflow. El mismo caso se chequea para la última nota si se pulsa en el margen derecho.</p>
 
 ``java
 
@@ -140,13 +142,99 @@ void accionaTecla(Tecla t, int i){
       }
       
     }
+
+    coloreaTecla(tecla, cod_nota_natural, cod_nota);
+    
+    sc.playNote(0, 2, instrumentos[cod_instrumento], cod_nota, 64, 0.5, 3, 64);
+    if(grabar){
+      tiempo_nota = millis();
+      int intervalo = tiempo_nota - tiempo_inicio_grabacion;
+      
+      score.addNote(intervalo/1000, 2, instrumentos[cod_instrumento], cod_nota, 64, 0.5, 3, 64);
+    }
 ```
- 
+
+<p>El método coloreaTecla es similar a el método accionaTecla con lo que no requiere mayor explicación.</p>
+
+``java
+void coloreaTecla(int tecla, int cod_nota_natural, int cod_nota){
+  fill(0, 128, 255);
+  textAlign(CENTER, TOP);
+  textFont(createFont("Arial", 10));
+  
+  if(cod_nota_natural != cod_nota){
+    
+    // pinta la nota alterada
+    if(cod_nota > cod_nota_natural){
+    
+      rect(tecla*45 + 33, ALTO_MENU, 24, 110, 0, 0, 5, 5);    
+      fill(0);
+      text(notas[cod_nota-60], (tecla+1)*45, ALTO_MENU + 160);    
+    
+    }else{
+      rect((tecla-1)*45 + 33, ALTO_MENU, 24, 110, 0, 0, 5, 5);
+      fill(0);
+      text(notas[cod_nota-60], (tecla)*45, ALTO_MENU + 160);
+    }
+    
+  }else{
+    
+    // pinta la nota natuaral
+    rect(tecla*45, ALTO_MENU, 45, 180, 0, 0, 5, 5);   
+    fill(0);
+    
+    text(notas[cod_nota-60], tecla*45+22, ALTO_MENU + 160);
+    
+    switch(tecla){
+      case 0:
+      case 3:
+      case 7:
+      case 10:
+        rect(tecla*45 + 33, ALTO_MENU, 24, 110, 0, 0, 5, 5);      
+        break;
+    
+      case 2:
+      case 6:
+      case 9:
+      case 13:
+        rect((tecla-1)*45 + 33, ALTO_MENU, 24, 110, 0, 0, 5, 5);
+        break;
+      
+      case 14:
+        break;
+      
+      default:
+        rect(tecla*45 + 33, ALTO_MENU, 24, 110, 0, 0, 5, 5);
+        rect((tecla-1)*45 + 33, ALTO_MENU, 24, 110, 0, 0, 5, 5);
+    }
+  }
+}
+```
+
+<p>Para la funcionalidad de salvado del fichero "melodia.mid" se utilizan tres variables: la bandera grabar y dos marcas de tiempo. Las marcas de tiempo serán la de el inicio de la grabación y la otra variable se utilizará para obtener la marca de tiempo de cada pulsación que luego servirá para hacer el cálculo de startBeat del método addNote.</p>
+
+``java
+  if(!modoAutomatico){
+    if(key == 'r' || key == 'R'){
+      if(grabar){
+        score.play();
+        score.writeMidiFile("melodia.mid");
+        grabar = false;
+      }else{
+        score = new SCScore();
+        tiempo_inicio_grabacion = millis();
+        grabar = true;
+      }
+    }    
+  }
+
+```
+
 <div align="center">
-	<p><img src="./Distorsionador_Imagen.gif" alt="Imagen distorsionada" /></p>
+	<p><img src="./Sintetizador.gif" alt="Sintetizador" /></p>
 </div>
 
-<p>Esta aplicación se ha desarrollado como sexta práctica evaluable para la asignatura de "Creando Interfaces de Usuarios" de la mención de Computación del grado de Ingeniería Informática de la Universidad de Las Palmas de Gran Canaria en el curso 2019/20 y en fecha de 21/3/2020 por el alumno Juan Sebastián Ramírez Artiles.</p>
+<p>Esta aplicación se ha desarrollado como séptima práctica evaluable para la asignatura de "Creando Interfaces de Usuarios" de la mención de Computación del grado de Ingeniería Informática de la Universidad de Las Palmas de Gran Canaria en el curso 2019/20 y en fecha de 28/3/2020 por el alumno Juan Sebastián Ramírez Artiles.</p>
 
 <p>Referencias a los recursos utilizados:</p>
 
