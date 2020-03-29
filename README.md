@@ -161,7 +161,7 @@ void iluminaTecla1(Tecla t){
 
 ```
 
-<p>El método iluminaTecla2 es similar a el método accionaTecla con lo que no requiere mayor explicación.</p>
+<p>El método iluminaTecla2 es similar a el método iluminaTecla1 con lo que no requiere mayor explicación.</p>
 
 ```java
 void coloreaTecla(int tecla, int cod_nota_natural, int cod_nota){
