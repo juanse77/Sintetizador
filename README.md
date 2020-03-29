@@ -109,7 +109,7 @@ void iluminaTecla1(Tecla t){
 
 <p>La lógica principal para esta funcionalidad se centra en los eventos mousePressed y keyPressed.</p>
 
-<h4>Pulsación de tecla mediante ratón</p>
+<h4>Pulsación de tecla mediante ratón:</h4>
 
 <p>Para el caso de las pulsaciones mediante el ratón se procedió del modo siguiente. Como todas las notas naturales tienen un ancho igual a 45, lo primero que se hace es detectar en qué franja de nota natural se realizó la pulsación. Luego se comprueba si la pulsación se realizó a la altura de las teclas alteradas. Y por último, si la pulsación se realizó en el margen derecho o izquierdo, lo que significaría que la pusación podría ser sobre una tecla alterada. Las teclas alteradas tienen un ancho de 24, por lo que los márgenes serán de 12 por cada lado.</p>
 
