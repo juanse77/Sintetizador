@@ -1,6 +1,6 @@
 <h1>Sintetizador:</h1>
 
-<p>En esta práctica se ha reproducido el comportamiento de un sintetizador muy básico en el cual se puede alternar entre la reproducción automática de una melodía o la activación del teclado manual. En el modo manual también se ha habilitado la posibilidad de grabar en un fichero midi la ejecución que realice en el teclado.</p>
+<p>En esta práctica se ha reproducido el comportamiento de un sintetizador muy básico en el cual se puede alternar entre la reproducción automática de una melodía o la activación del teclado manual. En el modo manual también se ha habilitado la posibilidad de grabar en un fichero midi la ejecución que se realice en el teclado.</p>
 
 <p>Como no se buscaba crear un sintetizador con una batería extensa de melodías en el modo automático, se ha almacenado en memoria una sola melodía. En caso de que cualquiera quisiera añadir más melodías lo podría hacer fácilmente editando el código. La melodía escogida fue el tema principal de la bagatela de Beethoven 'Para Elisa'.</p>
 
