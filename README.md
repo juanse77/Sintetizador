@@ -28,7 +28,7 @@ if(modoAutomatico){
 }
 ```
 
-<p>Un poco más abajo, en el método draw, se hace la llamada al método accionaTecla que será el que se encargue de iluminar la tecla que resonará, seguido de la llamada al método playNote que se encarga de emitir el sonido. La melodía se repite infinitamente recorriendo la secuencia de tonos de modo circular.</p>
+<p>Un poco más abajo, en el método draw, se hace la llamada al método iluminaTecla1 que será el que se encargue de iluminar la tecla que resonará, seguido de la llamada al método playNote que se encarga de emitir el sonido. La melodía se repite infinitamente recorriendo la secuencia de tonos de modo circular.</p>
 
 <p>El método iluminaTecla1 recibe como parámetros un objeto Tecla. La clase Tecla almacenará información útil para la ejecución de diferentes secciones dentro del método. En concreto almacena: la posición en el eje X de la esquina superior izquierda de la tecla; si es una nota natural o alterada; su tono en codificación midi; y la posición relativa de la nota entre las de su misma naturaleza, esto es, si son naturales o alteradas.</p>
 
@@ -53,7 +53,9 @@ if(modoAutomatico){
     i = 0;
   }
 [...]
+```
 
+```java
 void iluminaTecla1(Tecla t){
   fill(0, 128, 255);
   textAlign(CENTER, TOP);
@@ -164,7 +166,7 @@ void iluminaTecla1(Tecla t){
 <p>El método iluminaTecla2 es similar a el método iluminaTecla1 con lo que no requiere mayor explicación.</p>
 
 ```java
-void coloreaTecla(int tecla, int cod_nota_natural, int cod_nota){
+void iluminaTecla2(int tecla, int cod_nota_natural, int cod_nota){
   fill(0, 128, 255);
   textAlign(CENTER, TOP);
   textFont(createFont("Arial", 10));
