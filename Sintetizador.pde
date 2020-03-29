@@ -1,8 +1,8 @@
 import arb.soundcipher.*;
 import processing.serial.*;
-import gifAnimation.*;
+//import gifAnimation.*;
 
-GifMaker ficherogif;
+//GifMaker ficherogif;
 
 SoundCipher sc = new SoundCipher(this);
 SCScore score;
@@ -29,7 +29,7 @@ int[] midiNaturalSequence = { 60, 62, 64, 65, 67, 69, 71, 72, 74, 76, 77, 79, 81
 int[] midiAlteradaSequence = { 61, 63, 66, 68, 70, 73, 75, 78, 80, 82 };
 
 double[] pitches = {76, 75, 76, 75, 76, 71, 74, 72, 69, 60, 64, 69, 71, 64, 69, 71, 72, 64, 76, 75, 76, 75, 76, 71, 74, 72, 69, 60, 64, 69, 71, 64, 72, 71, 69};
-double[] dynamics = {64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64};
+double dynamic = 64;
 double[] durations = {1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 3, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 3, 1, 1, 1, 6};
 
 
@@ -43,8 +43,8 @@ void setup() {
   size(675, 250);
   background(255);
   
-  ficherogif = new GifMaker( this, "Sintetizador.gif");
-  ficherogif.setRepeat(0);
+  //ficherogif = new GifMaker( this, "Sintetizador.gif");
+  //ficherogif.setRepeat(0);
   
   stroke(1);
   fill(0);
@@ -149,7 +149,9 @@ void draw() {
     i = 0;
   }
 
-  ficherogif.addFrame();
+  //for(int j = 0; j < 8; j++){
+  //  ficherogif.addFrame();
+  //}
 
 }
 
@@ -197,7 +199,7 @@ void accionaTecla(Tecla t, int i){
     }
   }
   
-  sc.playNote(0, 2, instrumentos[cod_instrumento], pitches[i], dynamics[i], durations[i], 3, 64);
+  sc.playNote(0, 2, instrumentos[cod_instrumento], pitches[i], dynamic, durations[i], 3, 64);
 }
 
 void coloreaTecla(int tecla, int cod_nota_natural, int cod_nota){
@@ -288,7 +290,7 @@ void mousePressed() {
     sc.playNote(0, 2, instrumentos[cod_instrumento], cod_nota, 64, 0.5, 3, 64);
     if(grabar){
       tiempo_nota = millis();
-      int intervalo = tiempo_nota - tiempo_inicio_grabacion;
+      double intervalo = (double)(tiempo_nota - tiempo_inicio_grabacion);
       
       score.addNote(intervalo/1000, 2, instrumentos[cod_instrumento], cod_nota, 64, 0.5, 3, 64);
     }
@@ -296,6 +298,9 @@ void mousePressed() {
   
   if(mouseY <= ALTO_MENU){
     cod_instrumento = (int)(mouseX/ANCHO_BOTON);
+    if(cod_instrumento > instrumentos.length - 1){
+      cod_instrumento = instrumentos.length - 1;
+    }
   }
 }
 
@@ -323,9 +328,9 @@ void keyPressed(){
     
   }
   
-  if(key == 't'){
-    ficherogif.finish();
-  }
+  //if(key == 't'){
+  //  ficherogif.finish();
+  //}
 }
 
 void stop() {
