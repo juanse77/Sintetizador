@@ -10,7 +10,7 @@
 
 <h2>Detalles de implementación:</h2>
 
-<p>El sintetizador se presenta con un menú de etiquetas para seleccionar el instrumento que se desee reproducir. Además, puede alternar entre el modo automático y el modo manual pulsando la tecla (c). La opción de grabación se activa únicamente en el modo manual pulsando la tecla (r). Para finalizar la grabación se puede pulsar de nuevo la tecla (r).</p>
+<p>El sintetizador se presenta con un menú de etiquetas para seleccionar el instrumento que se desee reproducir. Además, puede alternar entre el modo automático y el modo manual pulsando la tecla (c). La opción de grabación se activa únicamente en el modo manual pulsando la tecla (v). Para finalizar la grabación se puede pulsar de nuevo la tecla (v).</p>
 
 <p>Existe la posibilidad de grabar varias veces sin necesidad de reiniciar la aplicación, solo que el archivo que quedará registrado será el de la última grabación. Después de la grabación se reproduce automáticamente el resultado de la misma, de modo que el usuario pueda saber si la grabación tiene la calidad suficiente o si requiere de un nuevo proceso de grabación. El fichero que se genera tiene el nombre de "melodia.mid" y se guarda en la raíz del programa processing, no en la raíz del proyecto.</p>
 

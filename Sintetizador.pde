@@ -97,9 +97,9 @@ void dibuja_menu(){
     text("Para cambiar a modo automático pulse la tecla c", ANCHO/2, 210);
     
     if(grabar){
-      text("Para finalizar la grabación pulse la tecla r", ANCHO/2, 230);
+      text("Para finalizar la grabación pulse la tecla v", ANCHO/2, 230);
     }else{
-      text("Para iniciar la grabación pulse la tecla r", ANCHO/2, 230);
+      text("Para iniciar la grabación pulse la tecla v", ANCHO/2, 230);
     }
   }
 }
@@ -288,10 +288,10 @@ void mousePressed() {
     iluminaTecla2(tecla, cod_nota_natural, cod_nota);
     
     sc.playNote(0, 2, instrumentos[cod_instrumento], cod_nota, 64, 0.5, 3, 64);
+    
     if(grabar){
       tiempo_nota = millis();
-      double intervalo = (double)(tiempo_nota - tiempo_inicio_grabacion);
-      
+      double intervalo = (double)(tiempo_nota - tiempo_inicio_grabacion);      
       score.addNote(intervalo/1000, 2, instrumentos[cod_instrumento], cod_nota, 64, 0.5, 3, 64);
     }
   }
