@@ -28,32 +28,33 @@ if(modoAutomatico){
 }
 ```
 
-<p>Un poco más abajo, en el método draw, se hace la llamada al método accionaTecla que será el que se encargue de iluminar la tecla que resonará y de emitir el sonido. La melodía se repite infinitamente recorriendo la secuencia de tonos de modo circular.</p>
+<p>Un poco más abajo, en el método draw, se hace la llamada al método accionaTecla que será el que se encargue de iluminar la tecla que resonará, seguido de la llamada al método playNote que se encarga de emitir el sonido. La melodía se repite infinitamente recorriendo la secuencia de tonos de modo circular.</p>
 
-<p>El método accionaTecla recibe como parámetros un objeto Tecla y el valor del índice del recorrido por los vectores. La clase Tecla almacenará información útil para la ejecución de diferentes secciones dentro del método accionaTecla. En concreto almacena: la posición en el eje X de la esquina superior izquierda de la tecla; si es una nota natural o alterada; su tono en codificación midi; y la posición relativa de la nota entre las de su misma naturaleza, esto es, si son naturales o alteradas.</p>
+<p>El método iluminaTecla1 recibe como parámetros un objeto Tecla. La clase Tecla almacenará información útil para la ejecución de diferentes secciones dentro del método. En concreto almacena: la posición en el eje X de la esquina superior izquierda de la tecla; si es una nota natural o alterada; su tono en codificación midi; y la posición relativa de la nota entre las de su misma naturaleza, esto es, si son naturales o alteradas.</p>
 
 <p>Los objetos tecla se almacenarán en una estructura HashMap de modo que puedan ser accedidos por su clave, que será su código midi de tono. La variable HashMap toma el nombre de 'teclado' y se carga una sola vez en el método setup.</p>
 
-```java
-// Ciclo infinito que reproduce cada nota en cada iteración de draw 
-if(modoAutomatico){
-    
-	accionaTecla(teclado.get((int)pitches[i]), i);
-    
-	i++;
-	if(i > 34){
-		i = 0;
-	}
-    
-}else{
-	i = 0;
-}
-```
-
-<p>En el método accionaTecla se pintan de azul las teclas accionadas dependiendo de si son naturales o alteradas, de su posición en el eje X y de su posición relativa de entre las teclas de igual naturaleza. Además, se pinta una etiqueta en la parte inferior de la tecla centrada en la misma con el nombre de la nota que se acciona. Finalmente en el método se hace la llamada al pocedimiento que producirá el sonido.</p>
+<p>En el método iluminaTecla1 se pintan de azul las teclas accionadas dependiendo de si son naturales o alteradas, de su posición en el eje X y de su posición relativa de entre las teclas de igual naturaleza. Además, se pinta una etiqueta en la parte inferior de la tecla centrada en la misma con el nombre de la nota que se acciona. Acto seguido se llama al método playNote producirá el sonido.</p>
 
 ```java
-void accionaTecla(Tecla t, int i){
+[...]
+  // Ciclo infinito que reproduce cada nota en cada iteración de draw
+  if(modoAutomatico){
+    
+    iluminaTecla1(teclado.get((int)pitches[i]));
+    sc.playNote(0, 2, instrumentos[cod_instrumento], pitches[i], dynamic, durations[i], 3, 64);
+    
+    i++;
+    if(i > 34){
+      i = 0;
+    }
+    
+  }else{
+    i = 0;
+  }
+[...]
+
+void iluminaTecla1(Tecla t){
   fill(0, 128, 255);
   textAlign(CENTER, TOP);
   textFont(createFont("Arial", 10));
@@ -97,7 +98,6 @@ void accionaTecla(Tecla t, int i){
     }
   }
   
-  sc.playNote(0, 2, instrumentos[cod_instrumento], pitches[i], dynamics[i], durations[i], 3, 64);
 }
 ```
 
@@ -107,16 +107,21 @@ void accionaTecla(Tecla t, int i){
 
 <p>Para la correcta visualización de la iluminación de la tecla al ser accionada, fue necesario reducir el frame rate a 3, de modo que la iluminación tuviese un tiempo suficiente para ser apreciada.</p>
 
-<p>La lógica principal para esta funcionalidad se centra en el evento mousePressed. Como todas las notas naturales tienen un ancho igual a 45, lo primero que se hace es detectar en qué franja de nota natural se realizó la pulsación. Luego se comprueba si la pulsación se realizó a la altura de las teclas alteradas. Y por último, si la pulsación se realizó en el margen derecho o izquierdo, lo que significaría que la pusación podría ser sobre una tecla alterada. Las teclas alteradas tienen un ancho de 24, por lo que los márgenes serán de 12 por cada lado.</p>
+<p>La lógica principal para esta funcionalidad se centra en los eventos mousePressed y keyPressed.</p>
+
+<h4>Pulsación de tecla mediante ratón</p>
+
+<p>Para el caso de las pulsaciones mediante el ratón se procedió del modo siguiente. Como todas las notas naturales tienen un ancho igual a 45, lo primero que se hace es detectar en qué franja de nota natural se realizó la pulsación. Luego se comprueba si la pulsación se realizó a la altura de las teclas alteradas. Y por último, si la pulsación se realizó en el margen derecho o izquierdo, lo que significaría que la pusación podría ser sobre una tecla alterada. Las teclas alteradas tienen un ancho de 24, por lo que los márgenes serán de 12 por cada lado.</p>
 
 <p>Para detectar el tono adecuado que se corresponde con la pulsación de ratón se utilizó dos variables: cod_nota y cod_nota_natural. En el caso en el que cod_nota y cod_nota_natural sean distintas se sabrá con seguridad que la nota es realmente una nota alterada.</p>
 
-<p>Por último en el caso de que se pulse en el margen izquierdo de una tecla natural que a su izquierda tiene otra nota natural se le suma 1, que sería equivalente a hacer un redondeo superior. Con esta información se realiza la llamada al método coloreaTecla, y finalmente se pasa a emitir el sonido y a guardarlo en un objeto SCScore para volcarlo a un fichero midi. Este último paso solo funcionará en el caso de que la grabación se haya activado.</p>
+<p>Por último en el caso de que se pulse en el margen izquierdo de una tecla natural que a su izquierda tiene otra nota natural se le suma 1, que sería equivalente a hacer un redondeo superior. Con esta información se realiza la llamada al método iluminaTecla2, y finalmente se pasa a emitir el sonido y a guardarlo en un objeto SCScore para volcarlo a un fichero midi. Este último paso solo funcionará en el caso de que la grabación se haya activado.</p>
 
 <p>Se comprueba que al pulsar en el margen izquierdo de la tecla inicial no se intente acceder a la tecla de su izquierda ya que no existe y se produciría un overflow. El mismo caso se chequea para la última nota si se pulsa en el margen derecho.</p>
 
 ```java
 
+[...]
   if(!modoAutomatico && mouseY > ALTO_MENU){
     int tecla = (int)(mouseX/45);
     
@@ -143,7 +148,7 @@ void accionaTecla(Tecla t, int i){
       
     }
 
-    coloreaTecla(tecla, cod_nota_natural, cod_nota);
+    iluminaTecla2(tecla, cod_nota_natural, cod_nota);
     
     sc.playNote(0, 2, instrumentos[cod_instrumento], cod_nota, 64, 0.5, 3, 64);
     if(grabar){
@@ -152,9 +157,11 @@ void accionaTecla(Tecla t, int i){
       
       score.addNote(intervalo/1000, 2, instrumentos[cod_instrumento], cod_nota, 64, 0.5, 3, 64);
     }
+[...]
+
 ```
 
-<p>El método coloreaTecla es similar a el método accionaTecla con lo que no requiere mayor explicación.</p>
+<p>El método iluminaTecla2 es similar a el método accionaTecla con lo que no requiere mayor explicación.</p>
 
 ```java
 void coloreaTecla(int tecla, int cod_nota_natural, int cod_nota){
@@ -210,10 +217,48 @@ void coloreaTecla(int tecla, int cod_nota_natural, int cod_nota){
   }
 }
 ```
+<h4>Pulsación de tecla mediante teclado:</h4>
+
+<p>La captura de teclas permanece activada únicamente en el modo manual. Las teclas del teclado que accionarán las teclas del sintetizador son:
+
+<ul>
+
+<li>a -> Do3</li>
+<li>w -> Do#3</li>
+<li>s -> Re3</li>
+<li>e -> Re#3</li>
+<li>d -> Mi3</li>
+<li>f -> Fa3</li>
+<li>t -> Fa#3</li>
+<li>g -> Sol3</li>
+<li>y -> Sol#3</li>
+<li>h -> La3</li>
+<li>u -> La#3</li>
+<li>j -> Si3</li>
+<li>A -> Do4</li>
+<li>W -> Do#4</li>
+<li>S -> Re4</li>
+<li>E -> Re#4</li>
+<li>D -> Mi4</li>
+<li>F -> Fa4</li>
+<li>T -> Fa#4</li>
+<li>G -> Sol4</li>
+<li>Y -> Sol#4</li>
+<li>H -> La4</li>
+<li>U -> La#4</li>
+<li>J -> Si4</li>
+<li>K -> Do5</li>
+
+</ul>
+
+</p>
+
+<h4>Salvado de la ejecución:</h4>
 
 <p>Para la funcionalidad de salvado del fichero "melodia.mid" se utilizan tres variables: la bandera grabar y dos marcas de tiempo. Las marcas de tiempo serán la del inicio de la grabación y otra variable que se utilizará para obtener la marca de tiempo de cada pulsación, que luego servirá para hacer el cálculo de startBeat del método addNote.</p>
 
 ```java
+[...]
   if(!modoAutomatico){
     if(key == 'r' || key == 'R'){
       if(grabar){
@@ -227,7 +272,7 @@ void coloreaTecla(int tecla, int cod_nota_natural, int cod_nota){
       }
     }    
   }
-
+[...]
 ```
 
 <div align="center">
