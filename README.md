@@ -4,7 +4,7 @@
 
 <p>Como no se buscaba crear un sintetizador con una batería extensa de melodías en el modo automático, se ha almacenado en memoria una sola melodía. En caso de que cualquiera quisiera añadir más melodías lo podría hacer fácilmente editando el código. La melodía escogida fue el tema principal de la bagatela de Beethoven 'Para Elisa'.</p>
 
-<p>Al ser un sintetizador, aunque sea básico, permite la activación de distintos instrumentos. Se han escogido los instrumentos de modo que las notas que puede reproducir el sintetizador concuerden con la tesitura natural de estos. La tesitura del sintetizador se extiende desde el Do3 al Do5 (ambos incluidos), y los instrumentos escogidos han sido: el piano, el chelo, la guitarra, la flauta, la trompeta, y el xilófono.</p>
+<p>Al ser un sintetizador, aunque sea básico, permite la activación de distintos instrumentos. Se han escogido los instrumentos de modo que las notas que puede reproducir el sintetizador concuerden con la tesitura natural de estos. La tesitura del sintetizador se extiende desde el Do3 al Do5 (ambos incluidos), y los instrumentos escogidos han sido: piano, chelo, guitarra, flauta, trompeta, acordeón y xilófono.</p>
 
 <p>Para la realización del proyecto se ha utilizado la biblioteca SoundCipher para Processing.</p>
 
