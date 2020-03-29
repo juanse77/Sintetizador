@@ -34,7 +34,7 @@ if(modoAutomatico){
 
 <p>Los objetos tecla se almacenarán en una estructura HashMap de modo que puedan ser accedidos por su clave, que será su código midi de tono. La variable HashMap toma el nombre de 'teclado' y se carga una sola vez en el método setup.</p>
 
-<p>En el método iluminaTecla1 se pintan de azul las teclas accionadas dependiendo de si son naturales o alteradas, de su posición en el eje X y de su posición relativa de entre las teclas de igual naturaleza. Además, se pinta una etiqueta en la parte inferior de la tecla centrada en la misma con el nombre de la nota que se acciona. Acto seguido se llama al método playNote producirá el sonido.</p>
+<p>En el método iluminaTecla1 se pintan de azul las teclas accionadas dependiendo de si son naturales o alteradas, de su posición en el eje X y de su posición relativa de entre las teclas de igual naturaleza. Además, se pinta una etiqueta en la parte inferior de la tecla centrada en la misma con el nombre de la nota que se acciona. Acto seguido se llama al método playNote que producirá el sonido.</p>
 
 ```java
 [...]
