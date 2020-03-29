@@ -109,7 +109,7 @@ void accionaTecla(Tecla t, int i){
 
 <p>La lógica principal para esta funcionalidad se centra en el evento mousePressed. Como todas las notas naturales tienen un ancho igual a 45, lo primero que se hace es detectar en qué franja de nota natural se realizó la pulsación. Luego se comprueba si la pulsación se realizó a la altura de las teclas alteradas. Y por último, si la pulsación se realizó en el margen derecho o izquierdo, lo que significaría que la pusación podría ser sobre una tecla alterada. Las teclas alteradas tienen un ancho de 24, por lo que los márgenes serán de 12 por cada lado.</p>
 
-<p>Para detectar que tono adecuado se corresponde con la pulsación de ratón se utilizó dos variables: cod_nota y cod_nota_natural. En el caso en el que cod_nota y cod_nota_natural sean distintas se sabrá con seguridad que la nota es realmente una nota alterada.</p>
+<p>Para detectar el tono adecuado que se corresponde con la pulsación de ratón se utilizó dos variables: cod_nota y cod_nota_natural. En el caso en el que cod_nota y cod_nota_natural sean distintas se sabrá con seguridad que la nota es realmente una nota alterada.</p>
 
 <p>Por último en el caso de que se pulse en el margen izquierdo de una tecla natural que a su izquierda tiene otra nota natural se le suma 1, que sería equivalente a hacer un redondeo superior. Con esta información se realiza la llamada al método coloreaTecla, y finalmente se pasa a emitir el sonido y a guardarlo en un objeto SCScore para volcarlo a un fichero midi. Este último paso solo funcionará en el caso de que la grabación se haya activado.</p>
 
@@ -211,7 +211,7 @@ void coloreaTecla(int tecla, int cod_nota_natural, int cod_nota){
 }
 ```
 
-<p>Para la funcionalidad de salvado del fichero "melodia.mid" se utilizan tres variables: la bandera grabar y dos marcas de tiempo. Las marcas de tiempo serán la de el inicio de la grabación y la otra variable se utilizará para obtener la marca de tiempo de cada pulsación que luego servirá para hacer el cálculo de startBeat del método addNote.</p>
+<p>Para la funcionalidad de salvado del fichero "melodia.mid" se utilizan tres variables: la bandera grabar y dos marcas de tiempo. Las marcas de tiempo serán la del inicio de la grabación y otra variable que se utilizará para obtener la marca de tiempo de cada pulsación, que luego servirá para hacer el cálculo de startBeat del método addNote.</p>
 
 ```java
   if(!modoAutomatico){
