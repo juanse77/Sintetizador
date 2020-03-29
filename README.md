@@ -223,31 +223,12 @@ void coloreaTecla(int tecla, int cod_nota_natural, int cod_nota){
 
 <ul>
 
-<li>a -> Do3</li>
-<li>w -> Do#3</li>
-<li>s -> Re3</li>
-<li>e -> Re#3</li>
-<li>d -> Mi3</li>
-<li>f -> Fa3</li>
-<li>t -> Fa#3</li>
-<li>g -> Sol3</li>
-<li>y -> Sol#3</li>
-<li>h -> La3</li>
-<li>u -> La#3</li>
-<li>j -> Si3</li>
-<li>A -> Do4</li>
-<li>W -> Do#4</li>
-<li>S -> Re4</li>
-<li>E -> Re#4</li>
-<li>D -> Mi4</li>
-<li>F -> Fa4</li>
-<li>T -> Fa#4</li>
-<li>G -> Sol4</li>
-<li>Y -> Sol#4</li>
-<li>H -> La4</li>
-<li>U -> La#4</li>
-<li>J -> Si4</li>
-<li>K -> Do5</li>
+<li>a -> Do3; w -> Do#3; s -> Re3; e -> Re#3</li>
+<li>d -> Mi3; f -> Fa3; t -> Fa#3; g -> Sol3</li>
+<li>y -> Sol#3; h -> La3; u -> La#3; j -> Si3</li>
+<li>A -> Do4; W -> Do#4; S -> Re4; E -> Re#4</li>
+<li>D -> Mi4; F -> Fa4; T -> Fa#4; G -> Sol4</li>
+<li>Y -> Sol#4; H -> La4; U -> La#4; J -> Si4; K -> Do5</li>
 
 </ul>
 
@@ -260,7 +241,7 @@ void coloreaTecla(int tecla, int cod_nota_natural, int cod_nota){
 ```java
 [...]
   if(!modoAutomatico){
-    if(key == 'r' || key == 'R'){
+    if(key == 'v' || key == 'V'){
       if(grabar){
         score.play();
         score.writeMidiFile("melodia.mid");
