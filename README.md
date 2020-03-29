@@ -234,6 +234,53 @@ void coloreaTecla(int tecla, int cod_nota_natural, int cod_nota){
 
 </p>
 
+```java
+[...]
+if(
+key == 'a' || key == 'w' || key == 's' || key == 'e' || key == 'd' || key == 'f' || key == 't' || key == 'g' || key == 'y' || key == 'h' || key == 'u' || key == 'j' ||
+key == 'A' || key == 'W' || key == 'S' || key == 'E' || key == 'D' || key == 'F' || key == 'T' || key == 'G' || key == 'Y' || key == 'H' || key == 'U' || key == 'J' ||
+key == 'K'){
+
+Tecla t = null;
+
+if(key == 'a') t = teclado.get(60);
+if(key == 'w') t = teclado.get(61);
+if(key == 's') t = teclado.get(62);
+if(key == 'e') t = teclado.get(63);
+if(key == 'd') t = teclado.get(64);
+if(key == 'f') t = teclado.get(65);
+if(key == 't') t = teclado.get(66);
+if(key == 'g') t = teclado.get(67);
+if(key == 'y') t = teclado.get(68);
+if(key == 'h') t = teclado.get(69);
+if(key == 'u') t = teclado.get(70);
+if(key == 'j') t = teclado.get(71);
+if(key == 'A') t = teclado.get(72);
+if(key == 'W') t = teclado.get(73);
+if(key == 'S') t = teclado.get(74);
+if(key == 'E') t = teclado.get(75);
+if(key == 'D') t = teclado.get(76);
+if(key == 'F') t = teclado.get(77);
+if(key == 'T') t = teclado.get(78);
+if(key == 'G') t = teclado.get(79);
+if(key == 'Y') t = teclado.get(80);
+if(key == 'H') t = teclado.get(81);
+if(key == 'U') t = teclado.get(82);
+if(key == 'J') t = teclado.get(83);
+if(key == 'K') t = teclado.get(84);
+
+iluminaTecla1(t);
+sc.playNote(0, 2, instrumentos[cod_instrumento], t.tono, 64, 0.5, 3, 64);
+println(notas[(int)pitches[i]-60]);
+
+if(grabar){
+  tiempo_nota = millis();
+  double intervalo = (double)(tiempo_nota - tiempo_inicio_grabacion);
+  score.addNote(intervalo/1000, 2, instrumentos[cod_instrumento], t.tono, 64, 0.5, 3, 64);
+}
+[...]
+```
+
 <h4>Salvado de la ejecución:</h4>
 
 <p>Para la funcionalidad de salvado del fichero "melodia.mid" se utilizan tres variables: la bandera grabar y dos marcas de tiempo. Las marcas de tiempo serán la del inicio de la grabación y otra variable que se utilizará para obtener la marca de tiempo de cada pulsación, que luego servirá para hacer el cálculo de startBeat del método addNote.</p>
