@@ -3,12 +3,14 @@ class Tecla{
   private final boolean natural;
   private final int tono;
   private final int posTecla;
+  private boolean pulsada;
   
   public Tecla(int posX, boolean natural, int tono, int posTecla){
     this.posX = posX;
     this.natural = natural;
     this.tono = tono;
     this.posTecla = posTecla;
+    this.pulsada = false;
   }
   
   public int getPosX(){
@@ -25,5 +27,13 @@ class Tecla{
   
   public int getPosTecla(){
     return posTecla;
+  }
+  
+  public boolean getPulsada(){
+    return pulsada;
+  }
+  
+  public void setPulsada(boolean p){
+    this.pulsada = p;
   }
 }

@@ -20,17 +20,17 @@
 
 ```java
 if(modoAutomatico){
-	if(i > 0){
-		delay((int)durations[i-1] * 600);
-	}else{
-		delay((int)durations[34] * 600);
-	}
+  if(i > 0){
+    delay((int)durations[i-1] * 600);
+  }else{
+    delay((int)durations[34] * 600);
+  }
 }
 ```
 
 <p>Un poco más abajo, en el método draw, se hace la llamada al método iluminaTecla1 que será el que se encargue de iluminar la tecla que resonará, seguido de la llamada al método playNote que se encarga de emitir el sonido. La melodía se repite infinitamente recorriendo la secuencia de tonos de modo circular.</p>
 
-<p>El método iluminaTecla1 recibe como parámetros un objeto Tecla. La clase Tecla almacenará información útil para la ejecución de diferentes secciones dentro del método. En concreto almacena: la posición en el eje X de la esquina superior izquierda de la tecla; si es una nota natural o alterada; su tono en codificación midi; y la posición relativa de la nota entre las de su misma naturaleza, esto es, si son naturales o alteradas.</p>
+<p>El método iluminaTecla1 recibe como parámetros un objeto Tecla. La clase Tecla almacenará información útil para la ejecución de diferentes secciones dentro del método. En concreto almacena: la posición en el eje X de la esquina superior izquierda de la tecla; si es una nota natural o alterada; su tono en codificación midi; y la posición relativa de la nota entre las de su misma naturaleza, esto es, si son naturales o alteradas. Además, almacenará una variable buleana para saber si se encuentra pusada o no. Esto será útil en los casos en los que se accione la tecla mediante teclado de modo que se impida el rebote de la nota.</p>
 
 <p>Los objetos tecla se almacenarán en una estructura HashMap de modo que puedan ser accedidos por su clave, que será su código midi de tono. La variable HashMap toma el nombre de 'teclado' y se carga una sola vez en el método setup.</p>
 
@@ -70,46 +70,53 @@ void iluminaTecla1(Tecla t){
   }else{
     
     // pinta la nota natuaral
-    rect(t.getPosX(), ALTO_MENU, 45, 180, 0, 0, 5, 5);   
-    fill(0);
-    
-    text(notas[t.getTono()-60], t.getPosX()+22, ALTO_MENU + 160);
-    
     int tecla = t.getPosTecla();
     switch(tecla){
       case 0:
       case 3:
       case 7:
       case 10:
-        rect(tecla*45 + 33, ALTO_MENU, 24, 110, 0, 0, 5, 5);      
+        rect(t.getPosX(), ALTO_MENU, 33, 110, 0, 0, 5, 5);      
         break;
     
       case 2:
       case 6:
       case 9:
       case 13:
-        rect((tecla-1)*45 + 33, ALTO_MENU, 24, 110, 0, 0, 5, 5);
+        rect(t.getPosX() + 12, ALTO_MENU, 33, 110, 0, 0, 5, 5);
         break;
       
       case 14:
+        rect(t.getPosX(), ALTO_MENU, 45, 110, 0, 0, 5, 5);
         break;
       
       default:
-        rect(tecla*45 + 33, ALTO_MENU, 24, 110, 0, 0, 5, 5);
-        rect((tecla-1)*45 + 33, ALTO_MENU, 24, 110, 0, 0, 5, 5);
+        rect(t.getPosX() + 12, ALTO_MENU, 21, 110, 0, 0, 5, 5);
+        
     }
+    
+    rect(t.getPosX(), 110 + ALTO_MENU, 45, 70, 0, 0, 5, 5);
+
+    // Borra la linea de unión    
+    stroke(0, 128, 255);
+    line(t.getPosX(), ALTO_MENU + 110, t.getPosX() + 45, ALTO_MENU + 110);
+    stroke(0);
+      
+    fill(0);
+    text(notas[t.getTono()-60], t.getPosX()+22, ALTO_MENU + 160);
+    
   }
   
 }
 ```
 
-<p>La posición relativa de la tecla se utiliza para pintar las notas alteradas que pueden situarse a la derecha, a la izquierda, o a la derecha e izquierda de cada tecla natural; o en el caso de la última tecla natural, la 14, en el que no es necesario pintar ninguna tecla alterada a su alrededor. La posición relativa es únicamente necesaria en los casos en los que se pinte una tecla natural.</p> 
+<p>La posición relativa de la tecla se utiliza para pintar las notas naturales. Las notas naturales a diferencia de las alteradas tienen distinta forma dependiendo de si tienen teclas alteradas a su izquierda, a su derecha, a su izquierda y derecha, o no tiene ninguna como en el caso de la última tecla natural.</p> 
 
 <h3>El modo manual:</h3>
 
 <p>Para la correcta visualización de la iluminación de la tecla al ser accionada, fue necesario reducir el frame rate a 3, de modo que la iluminación tuviese un tiempo suficiente para ser apreciada.</p>
 
-<p>La lógica principal para esta funcionalidad se centra en los eventos mousePressed y keyPressed.</p>
+<p>La lógica principal para esta funcionalidad se centra en los eventos mousePressed, keyPressed y keyReleased.</p>
 
 <h4>Pulsación de tecla mediante ratón:</h4>
 
@@ -189,33 +196,38 @@ void iluminaTecla2(int tecla, int cod_nota_natural, int cod_nota){
   }else{
     
     // pinta la nota natuaral
-    rect(tecla*45, ALTO_MENU, 45, 180, 0, 0, 5, 5);   
-    fill(0);
-    
-    text(notas[cod_nota-60], tecla*45+22, ALTO_MENU + 160);
-    
     switch(tecla){
       case 0:
       case 3:
       case 7:
       case 10:
-        rect(tecla*45 + 33, ALTO_MENU, 24, 110, 0, 0, 5, 5);      
+        rect(tecla*45, ALTO_MENU, 33, 110, 0, 0, 5, 5);      
         break;
     
       case 2:
       case 6:
       case 9:
       case 13:
-        rect((tecla-1)*45 + 33, ALTO_MENU, 24, 110, 0, 0, 5, 5);
+        rect(tecla*45 + 12, ALTO_MENU, 33, 110, 0, 0, 5, 5);
         break;
       
       case 14:
+        rect(tecla*45, ALTO_MENU, 45, 110, 0, 0, 5, 5);
         break;
       
       default:
-        rect(tecla*45 + 33, ALTO_MENU, 24, 110, 0, 0, 5, 5);
-        rect((tecla-1)*45 + 33, ALTO_MENU, 24, 110, 0, 0, 5, 5);
+        rect(tecla*45 + 12, ALTO_MENU, 21, 110, 0, 0, 5, 5);
     }
+    
+    rect(tecla*45, ALTO_MENU + 110, 45, 70, 0, 0, 5, 5);
+    
+    // Borra la linea de unión
+    stroke(0, 128, 255);
+    line(tecla*45, ALTO_MENU + 110, tecla*45 + 45, ALTO_MENU + 110);
+    stroke(0);
+    
+    fill(0);
+    text(notas[cod_nota-60], tecla*45+22, ALTO_MENU + 160);
   }
 }
 ```
@@ -238,48 +250,56 @@ void iluminaTecla2(int tecla, int cod_nota_natural, int cod_nota){
 
 ```java
 [...]
-if(
-key == 'a' || key == 'w' || key == 's' || key == 'e' || key == 'd' || key == 'f' || key == 't' || key == 'g' || key == 'y' || key == 'h' || key == 'u' || key == 'j' ||
-key == 'A' || key == 'W' || key == 'S' || key == 'E' || key == 'D' || key == 'F' || key == 'T' || key == 'G' || key == 'Y' || key == 'H' || key == 'U' || key == 'J' ||
-key == 'K'){
+    if(
+    key == 'a' || key == 'w' || key == 's' || key == 'e' || key == 'd' || key == 'f' || key == 't' || key == 'g' || key == 'y' || key == 'h' || key == 'u' || key == 'j' ||
+    key == 'A' || key == 'W' || key == 'S' || key == 'E' || key == 'D' || key == 'F' || key == 'T' || key == 'G' || key == 'Y' || key == 'H' || key == 'U' || key == 'J' ||
+    key == 'K'){
+      
+      Tecla t = null;
+      
+      if(key == 'a') t = teclado.get(60);
+      if(key == 'w') t = teclado.get(61);
+      if(key == 's') t = teclado.get(62);
+      if(key == 'e') t = teclado.get(63);
+      if(key == 'd') t = teclado.get(64);
+      if(key == 'f') t = teclado.get(65);
+      if(key == 't') t = teclado.get(66);
+      if(key == 'g') t = teclado.get(67);
+      if(key == 'y') t = teclado.get(68);
+      if(key == 'h') t = teclado.get(69);
+      if(key == 'u') t = teclado.get(70);
+      if(key == 'j') t = teclado.get(71);
+      if(key == 'A') t = teclado.get(72);
+      if(key == 'W') t = teclado.get(73);
+      if(key == 'S') t = teclado.get(74);
+      if(key == 'E') t = teclado.get(75);
+      if(key == 'D') t = teclado.get(76);
+      if(key == 'F') t = teclado.get(77);
+      if(key == 'T') t = teclado.get(78);
+      if(key == 'G') t = teclado.get(79);
+      if(key == 'Y') t = teclado.get(80);
+      if(key == 'H') t = teclado.get(81);
+      if(key == 'U') t = teclado.get(82);
+      if(key == 'J') t = teclado.get(83);
+      if(key == 'K') t = teclado.get(84);
 
-Tecla t = null;
-
-if(key == 'a') t = teclado.get(60);
-if(key == 'w') t = teclado.get(61);
-if(key == 's') t = teclado.get(62);
-if(key == 'e') t = teclado.get(63);
-if(key == 'd') t = teclado.get(64);
-if(key == 'f') t = teclado.get(65);
-if(key == 't') t = teclado.get(66);
-if(key == 'g') t = teclado.get(67);
-if(key == 'y') t = teclado.get(68);
-if(key == 'h') t = teclado.get(69);
-if(key == 'u') t = teclado.get(70);
-if(key == 'j') t = teclado.get(71);
-if(key == 'A') t = teclado.get(72);
-if(key == 'W') t = teclado.get(73);
-if(key == 'S') t = teclado.get(74);
-if(key == 'E') t = teclado.get(75);
-if(key == 'D') t = teclado.get(76);
-if(key == 'F') t = teclado.get(77);
-if(key == 'T') t = teclado.get(78);
-if(key == 'G') t = teclado.get(79);
-if(key == 'Y') t = teclado.get(80);
-if(key == 'H') t = teclado.get(81);
-if(key == 'U') t = teclado.get(82);
-if(key == 'J') t = teclado.get(83);
-if(key == 'K') t = teclado.get(84);
-
-iluminaTecla1(t);
-sc.playNote(0, 2, instrumentos[cod_instrumento], t.tono, 64, 0.5, 3, 64);
-println(notas[(int)pitches[i]-60]);
-
-if(grabar){
-  tiempo_nota = millis();
-  double intervalo = (double)(tiempo_nota - tiempo_inicio_grabacion);
-  score.addNote(intervalo/1000, 2, instrumentos[cod_instrumento], t.tono, 64, 0.5, 3, 64);
-}
+      if(!t.getPulsada()){
+        
+        iluminaTecla1(t);
+        sc.playNote(0, 2, instrumentos[cod_instrumento], t.tono, 64, 0.5, 3, 64);
+        println(notas[(int)pitches[i]-60]);
+  
+        if(grabar){
+          tiempo_nota = millis();
+          double intervalo = (double)(tiempo_nota - tiempo_inicio_grabacion);
+          score.addNote(intervalo/1000, 2, instrumentos[cod_instrumento], t.tono, 64, 0.5, 3, 64);
+        }
+        
+        t.setPulsada(true);
+      
+      }
+    
+    }
 [...]
 ```
 
