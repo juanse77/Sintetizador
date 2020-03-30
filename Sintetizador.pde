@@ -176,22 +176,22 @@ void iluminaTecla1(Tecla t){
       case 3:
       case 7:
       case 10:
-        rect(t.getPosX(), ALTO_MENU, 33, 110, 0, 0, 5, 5);      
+        rect(t.getPosX(), ALTO_MENU, 33, 110);      
         break;
     
       case 2:
       case 6:
       case 9:
       case 13:
-        rect(t.getPosX() + 12, ALTO_MENU, 33, 110, 0, 0, 5, 5);
+        rect(t.getPosX() + 12, ALTO_MENU, 33, 110);
         break;
       
       case 14:
-        rect(t.getPosX(), ALTO_MENU, 45, 110, 0, 0, 5, 5);
+        rect(t.getPosX(), ALTO_MENU, 45, 110);
         break;
       
       default:
-        rect(t.getPosX() + 12, ALTO_MENU, 21, 110, 0, 0, 5, 5);
+        rect(t.getPosX() + 12, ALTO_MENU, 21, 110);
         
     }
     
@@ -237,22 +237,22 @@ void iluminaTecla2(int tecla, int cod_nota_natural, int cod_nota){
       case 3:
       case 7:
       case 10:
-        rect(tecla*45, ALTO_MENU, 33, 110, 0, 0, 5, 5);      
+        rect(tecla*45, ALTO_MENU, 33, 110);      
         break;
     
       case 2:
       case 6:
       case 9:
       case 13:
-        rect(tecla*45 + 12, ALTO_MENU, 33, 110, 0, 0, 5, 5);
+        rect(tecla*45 + 12, ALTO_MENU, 33, 110);
         break;
       
       case 14:
-        rect(tecla*45, ALTO_MENU, 45, 110, 0, 0, 5, 5);
+        rect(tecla*45, ALTO_MENU, 45, 110);
         break;
       
       default:
-        rect(tecla*45 + 12, ALTO_MENU, 21, 110, 0, 0, 5, 5);
+        rect(tecla*45 + 12, ALTO_MENU, 21, 110);
     }
     
     rect(tecla*45, ALTO_MENU + 110, 45, 70, 0, 0, 5, 5);
