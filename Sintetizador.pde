@@ -138,7 +138,7 @@ void draw() {
   if(modoAutomatico){
     
     iluminaTecla1(teclado.get((int)pitches[i]));
-    sc.playNote(0, 2, instrumentos[cod_instrumento], pitches[i], dynamic, durations[i], 3, 64);
+    sc.playNote(0, 0, instrumentos[cod_instrumento], pitches[i], dynamic, durations[i], 3, 64);
     println(notas[(int)pitches[i]-60]);
     
     i++;
@@ -299,7 +299,7 @@ void mousePressed() {
     
     iluminaTecla2(tecla, cod_nota_natural, cod_nota);
     
-    sc.playNote(0, 2, instrumentos[cod_instrumento], cod_nota, 64, 0.5, 3, 64);
+    sc.playNote(0, 0, instrumentos[cod_instrumento], cod_nota, 64, 0.5, 3, 64);
     
     if(grabar){
       tiempo_nota = millis();
@@ -375,7 +375,7 @@ void keyPressed(){
       if(!t.getPulsada()){
         
         iluminaTecla1(t);
-        sc.playNote(0, 2, instrumentos[cod_instrumento], t.tono, 64, 0.5, 3, 64);
+        sc.playNote(0, 0, instrumentos[cod_instrumento], t.tono, 64, 0.5, 3, 64);
         println(notas[(int)pitches[i]-60]);
   
         if(grabar){
